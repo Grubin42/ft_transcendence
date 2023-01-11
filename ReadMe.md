@@ -21,3 +21,5 @@ Ce project consiste à créer un site web pour participer à une compétition du
 > * [Chat IRC](https://www.npmjs.com/package/node-irc)
 > * [Jeu Pong](https://www.youtube.com/watch?v=CAkqfaT20U8)
 > * [MarkDown](https://www.markdownguide.org/basic-syntax/)
+
+Haha non la doc c'est usless go [ChatGPT](https://openai.com/)
