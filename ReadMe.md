@@ -34,4 +34,5 @@ Ce project consiste à créer un site web pour participer à une compétition du
 > * [Google Font](https://fonts.google.com/)
 > * [Color Palettes](https://colorhunt.co/)
 > * [Flaticon](https://www.flaticon.com/fr/)
+> * [Sublime Merge](https://www.sublimemerge.com/)
 > * [ChatGPT](https://openai.com/)
