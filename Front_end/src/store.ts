@@ -1,56 +1,39 @@
 import { createStore } from 'vuex'
 import { io } from 'socket.io-client';
 import createPersistedState from 'vuex-persistedstate'
-import Cookies from 'js-cookie';
+
 const persistedState = createPersistedState({
-  paths: ['isAuthenticated', 'isDoubleAuth', 'isId', 'isAvatar', 'isNickname', 'isStatusCode', 'isUsers', 'isItIsMe']
+  paths: ['self.isToken']
 });
 
 const store = createStore({
   plugins: [persistedState],
+
   state: {
-    isAuthenticated: false,
-    isDoubleAuth: false,
-    isId: 0,
-    isAvatar: "",
-    isNickname: "",
+    self: {
+      isToken: "", 
+      isDoubleAuth: false,
+      isId: 0,
+      isNickname: "",
+      isAvatar: "",
+    },
     isStatusCode: false,
-    isUsers: [],
-    isItIsMe: [],
-    isChansPublic: [],
-    isChansPrivate: [],
-    isChanContext: [],
-    isWebSocket: null
   },
+
   mutations: {
-    setAuthenticated(state, isAuthenticated) {state.isAuthenticated = isAuthenticated},
-    setDoubleAuth(state, isDoubleAuth) {state.isDoubleAuth = isDoubleAuth},
-    setId(state, isId) {state.isId = isId},
-    setAvatar(state, isAvatar) {state.isAvatar = isAvatar},
-    setNickname(state, isNickname) {state.isNickname = isNickname},
+    setSelf(state, newSelf){state.self = newSelf},
     setStatusCode(state,  isStatusCode) {state.isStatusCode =  isStatusCode},
-    setUsers(state,  isUsers) {state.isUsers =  isUsers},
-    setItIsMe(state,  isItIsMe) {state.isItIsMe =  isItIsMe},
-    setChansPublic(state,  isChansPublic) {state.isChansPublic =  isChansPublic},
-    setChansPrivate(state,  isChansPrivate) {state.isChansPrivate =  isChansPrivate},
-    setChanContext(state,  isChanContext) {state.isChanContext =  isChanContext},
-    setWebSocket(state, isWebSocket) {state.isWebSocket = isWebSocket;},
   },
+
   getters: {
-    getAuthenticated: state => state.isAuthenticated,
-    getDoubleAuth: state => state.isDoubleAuth,
-    getId: state => state.isId,
-    getAvatar: state => state.isAvatar,
-    getNickname: state => state.isNickname,
+    getSelf: state => state.self,
     getStatusCode: state => state.isStatusCode,
-    getUsers: state => state.isUsers,
-    getItIsMe: state => state.isItIsMe,
-    getChansPublic: state => state.isChansPublic,
-    getChansPrivate: state => state.isChansPrivate,
-    getChanContext: state => state.isChanContext,
-    getWebSocket: state => state.isWebSocket
   },
+
   actions: {
+    setSelfProps(context, newProps){
+      context.commit('setSelf', newProps)
+    },
     initWebSocket({ commit }) {
       const myId = store.getters.getId;
       const webSocket = io('http://c1r2s3:3000/', {
