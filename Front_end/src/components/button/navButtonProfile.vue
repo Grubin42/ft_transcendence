@@ -9,31 +9,31 @@
     }
 
     function getAvatar(){
-        const self = store.getters.getSelf;
-        if (self)
-        return self.isAvatar;
+        const avatar = store.getters.getAvatar;
+        if (avatar)
+        return avatar;
     }
 
     function getNickname(){
-        const self = store.getters.getSelf;
-        if (self)
-        return self.isNickname;
+        const nickname = store.getters.getNickname;
+        if (nickname)
+        return nickname;
     }
     //voir si il faut une fonction getNickname
 </script>
 
 <template>
-    <button class="img" @click="click" :style="{ backgroundImage: 'url(' + getAvatar() + ')' }">
-        <img :src="getAvatar()" />
+    <button class="img" @click="click" :style="{ backgroundImage: 'url(' + store.getters.getAvatar + ')' }">
+        <img :src="store.getters.getAvatar" />
     </button>
     <div>
-        {{ getNickname() }}
+        {{ store.getters.getNickname }}
     </div>
 </template>
 
 <style scoped lang="scss">
 .img{
-  width: 50px;
+  max-width: 50px;
   height: 50px;
   border-radius: 50%;
   background-size: cover;

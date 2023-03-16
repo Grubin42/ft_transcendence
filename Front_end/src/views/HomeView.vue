@@ -1,14 +1,16 @@
 <script setup lang="ts">
     import navButtonLogin from "../components/button/navButtonLogin.vue"
+    import formLoginCode from '../components/form/formLoginCode.vue';
     import axios from 'axios'
     import { onMounted } from 'vue'
     import { useStore } from "vuex"
     import { useRouter } from 'vue-router'
+    import getAvatar from '../getAvatar'
+
+
 
     const router = useRouter();
     const store = useStore();
-    const self = store.getters.getSelf;
-    let msgError = '';
     let code: any = null;
 
     onMounted(() => {
@@ -19,30 +21,29 @@
         try {
             const response = await axios.post('http://c1r2s3:3000/wellcome', {code: code});
             if (response.data.doubleAuth == true) {
-                store.dispatch('setSelfProps', {isDoubleAuth: true});
+                store.commit('setDoubleAuth', true);
+                store.commit('setNickname', response.data.nickname);
             }
             else {
-                store.dispatch('setSelfProps', {
-                    isDoubleAuth: false,
-                    isId: response.data.user.user_id,
-                    isNickname: response.data.user.nickname,
-                    isToken: response.data.accessToken
-                });
-                let test = store.getters.getSelf;
-                console.log(test);
-                //fetchAvatar(store);
+                store.commit('setDoubleAuth',  false);
+                store.commit('setId', response.data.user.user_id);
+                store.commit('setNickname', response.data.user.nickname);
+                store.commit('setToken',  response.data.accessToken);
+                getAvatar(store, response.data.accessToken, response.data.user.user_id);
                 router.push('/');
             }
 
         } catch (error: any) {
-            msgError = error.response.data.message ;
-            store.commit('setStatusCode', true);
+            console.log(error);
+            //alert(error);
+            /*setTimeout(() => {
+                window.location.reload();
+            }, 1000);*/
         }
     }
 
     const checkCode = async () => {
         await router.isReady();
-        store.commit('setStatusCode', false);
         code = router.currentRoute.value.query.code;
         if (code) {
             welcome(code);
@@ -54,10 +55,10 @@
     }
 
     function getToken() {
-        const self = store.getters.getSelf;
-        if (self)
-        return self.isToken;
-  }
+        const token = store.getters.getToken;
+        if (token)
+        return token;
+    }
 </script>
 
 <template>
@@ -66,6 +67,7 @@
             Bienvenue sur ft_trantran
         </h1>
         <navButtonLogin v-if="!getToken()" @click="clicklogin()"/>
+        <formLoginCode  v-if="store.getters.getDoubleAuth == true"/>
     </div>
 </template>
 
@@ -79,4 +81,5 @@ h1{
     width: auto;
     height: auto;
 }
+
 </style>

@@ -5,11 +5,6 @@
     import navButtonChat from "../button/navButtonChat.vue"
     import navButtonPlay from "../button/navButtonPlay.vue"
     import navButtonLogout from "../button/navButtonLogout.vue"
-    import { useStore } from "vuex"
-
-    const store = useStore();
-    const self = store.getters.getSelf;
-
 </script>
 
 <template>

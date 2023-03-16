@@ -13,9 +13,7 @@
         //}
         localStorage.clear();
         store.replaceState({});
-        store.dispatch('setSelfProps', {
-                    isDoubleAuth: false
-                });
+        store.commit('setDoubleAuth', {isDoubleAuth: false});
         router.push('/');
     }
 </script>

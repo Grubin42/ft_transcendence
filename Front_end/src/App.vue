@@ -1,14 +1,15 @@
 <script setup lang="ts">
   import navBar from "./components/navBar/navBar.vue"
+  import { onMounted } from 'vue'
   import { RouterView } from "vue-router"
-  import { useStore } from "vuex"
-
+  import  { useStore} from 'vuex'
+    
   const store = useStore();
-
+  
   function getToken() {
-    const self = store.getters.getSelf;
-    if (self)
-      return self.isToken;
+    const token = store.getters.getToken;
+    if (token)
+      return token;
   }
 </script>
 

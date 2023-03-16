@@ -1,58 +1,34 @@
 import { createStore } from 'vuex'
-import { io } from 'socket.io-client';
 import createPersistedState from 'vuex-persistedstate'
 
-const persistedState = createPersistedState({
-  paths: ['self.isToken']
-});
+const persistedState = createPersistedState({});
 
 const store = createStore({
   plugins: [persistedState],
 
   state: {
-    self: {
       isToken: "", 
       isDoubleAuth: false,
       isId: 0,
       isNickname: "",
       isAvatar: "",
-    },
-    isStatusCode: false,
   },
 
   mutations: {
-    setSelf(state, newSelf){state.self = newSelf},
-    setStatusCode(state,  isStatusCode) {state.isStatusCode =  isStatusCode},
+    setToken(state, newToken){state.isToken = newToken},
+    setDoubleAuth(state, newDoubleAuth){state.isDoubleAuth = newDoubleAuth},
+    setId(state, newId){state.isId = newId},
+    setNickname(state, isNickname) {state.isNickname = isNickname},
+    setAvatar(state, isAvatar) {state.isAvatar = isAvatar},
   },
 
   getters: {
-    getSelf: state => state.self,
-    getStatusCode: state => state.isStatusCode,
+    getToken: state => state.isToken,
+    getDoubleAuth: state => state.isDoubleAuth,
+    getId: state => state.isId,
+    getAvatar: state => state.isAvatar,
+    getNickname: state => state.isNickname,
   },
-
-  actions: {
-    setSelfProps(context, newProps){
-      context.commit('setSelf', newProps)
-    },
-    initWebSocket({ commit }) {
-      const myId = store.getters.getId;
-      const webSocket = io('http://c1r2s3:3000/', {
-        auth: {
-          myId: myId
-        }
-      });
-
-      webSocket.on('connect', () => {
-        console.log('Socket connected');
-        commit('setWebSocket', webSocket);
-      });
-
-      webSocket.on('disconnect', () => {
-        console.log('Socket disconnected');
-        commit('setWebSocket', null);
-      });
-    },
-  }
 })
 
 export default store;
