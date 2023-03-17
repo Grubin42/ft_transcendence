@@ -19,7 +19,7 @@
 
     const welcome = async (code: any) => {
         try {
-            const response = await axios.post('http://c1r2s3:3000/wellcome', {code: code});
+            const response = await axios.post('/wellcome', {code: code});
             if (response.data.doubleAuth == true) {
                 store.commit('setDoubleAuth', true);
                 store.commit('setNickname', response.data.nickname);
@@ -29,7 +29,8 @@
                 store.commit('setId', response.data.user.user_id);
                 store.commit('setNickname', response.data.user.nickname);
                 store.commit('setToken',  response.data.accessToken);
-                getAvatar(store, response.data.accessToken, response.data.user.user_id);
+                let url = await getAvatar(store, response.data.accessToken, response.data.user.user_id);
+                store.commit('setAvatar', url);
                 router.push('/');
             }
 

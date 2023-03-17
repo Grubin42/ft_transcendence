@@ -2,7 +2,7 @@
     import router from '@/router'
     
     function click(){
-        router.push('/Users');
+        router.push('/users');
     }
 </script>
 

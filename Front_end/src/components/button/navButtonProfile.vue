@@ -4,30 +4,21 @@
 
     const store = useStore();
 
-    async function click(){
-        await router.push('/Profile');
+    function clickCheckWhat(what: string){
+        if(what == 'me'){
+            store.commit('setWhat', what);
+        }
+        router.push('/Profile/user');
     }
 
-    function getAvatar(){
-        const avatar = store.getters.getAvatar;
-        if (avatar)
-        return avatar;
-    }
-
-    function getNickname(){
-        const nickname = store.getters.getNickname;
-        if (nickname)
-        return nickname;
-    }
-    //voir si il faut une fonction getNickname
 </script>
 
 <template>
-    <button class="img" @click="click" :style="{ backgroundImage: 'url(' + store.getters.getAvatar + ')' }">
-        <img :src="store.getters.getAvatar" />
-    </button>
-    <div>
-        {{ store.getters.getNickname }}
+    <div class="avatarButton">
+        <button class="img" @click="clickCheckWhat('me')" :style="{ backgroundImage: 'url(' + store.getters.getAvatar + ')' }">
+            <img :src="store.getters.getAvatar" />
+        </button>
+            {{ store.getters.getNickname }}
     </div>
 </template>
 
@@ -41,5 +32,11 @@
 }
 img{
   display: none;
+}
+.avatarButton{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 100%;
 }
 </style>
