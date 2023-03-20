@@ -18,7 +18,7 @@
           store.commit('setId', response.data.user.user_id);
           store.commit('setNickname', response.data.user.nickname);
           store.commit('setToken',  response.data.accessToken);
-          let url = await getAvatar(store, response.data.accessToken, response.data.user.user_id);
+          let url = await getAvatar(store, response.data.user.user_id);
           store.commit('setAvatar', url);
           store.commit('setDoubleAuth',  false);
           router.push("/");

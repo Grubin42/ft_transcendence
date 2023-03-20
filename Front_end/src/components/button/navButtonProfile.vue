@@ -1,14 +1,21 @@
 <script  setup lang="ts">
     import { useStore } from "vuex"
     import router from '@/router'
+    import axios from "axios";
 
     const store = useStore();
 
-    function clickCheckWhat(what: string){
-        if(what == 'me'){
+    async function clickCheckWhat(what: string){
+        try {
             store.commit('setWhat', what);
+            const headers = { Authorization: `Bearer ${store.getters.getToken}` };
+            const response = await axios.get(`/users/profile/${store.getters.getId}`, {headers});
+            store.commit('setOneUser', response.data);
+            console.log('me in button profile = ', store.getters.getOneUser);
+            router.push('/Profile/me');
+        } catch (error: any) {
+            console.log(error);
         }
-        router.push('/Profile/user');
     }
 
 </script>

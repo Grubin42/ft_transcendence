@@ -7,8 +7,6 @@
     import { useRouter } from 'vue-router'
     import getAvatar from '../getAvatar'
 
-
-
     const router = useRouter();
     const store = useStore();
     let code: any = null;
@@ -29,7 +27,7 @@
                 store.commit('setId', response.data.user.user_id);
                 store.commit('setNickname', response.data.user.nickname);
                 store.commit('setToken',  response.data.accessToken);
-                let url = await getAvatar(store, response.data.accessToken, response.data.user.user_id);
+                let url = await getAvatar(store, response.data.user.user_id);
                 store.commit('setAvatar', url);
                 router.push('/');
             }

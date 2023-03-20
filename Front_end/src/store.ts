@@ -17,17 +17,19 @@ const store = createStore({
 
       isAllUsers: [],
       isUsers: [],
+      isOneUser: [],
       isArrayAvatar: <any>[]
   },
 
   mutations: {
-    setToken(state, newToken){state.isToken = newToken},
-    setDoubleAuth(state, newDoubleAuth){state.isDoubleAuth = newDoubleAuth},
-    setId(state, newId){state.isId = newId},
+    setToken(state, isToken){state.isToken = isToken},
+    setDoubleAuth(state, isDoubleAuth){state.isDoubleAuth = isDoubleAuth},
+    setId(state, isId){state.isId = isId},
     setNickname(state, isNickname) {state.isNickname = isNickname},
     setAvatar(state, isAvatar) {state.isAvatar = isAvatar},
     setAllUsers(state, isAllUsers) {state.isAllUsers = isAllUsers},
     setUsers(state, isUsers) {state.isUsers = isUsers},
+    setOneUser(state, isOneUser) {state.isOneUser = isOneUser},
     setWhat(state, isWhat) {state.isWhat = isWhat},
     setArrayAvatar(state, payload){
       const {item, index} = payload;
@@ -47,6 +49,7 @@ const store = createStore({
     getNickname: state => state.isNickname,
     getAllUsers: state => state.isAllUsers,
     getUsers: state => state.isUsers,
+    getOneUser: state => state.isOneUser,
     getWhat: state => state.isWhat,
     getArrayAvatar: (state) => (index: any) => {
       return state.isArrayAvatar[index]

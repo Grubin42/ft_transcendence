@@ -7,7 +7,9 @@
     const store = useStore();
 
     function click(data: any){
-        //mettre data dans le store
+        //mettre data dans le store, data = un utilisateur
+        store.commit('setOneUser', data);
+        console.log('user in oneUserButton',store.getters.getOneUser);
         router.push('/Profile/user');
     }
 
@@ -34,7 +36,7 @@
 
     async function pushAvatarUrl(userId: any){
         try {
-            const url = await getAvatar(store, store.getters.getToken, userId);
+            const url = await getAvatar(store, userId);
             store.commit('setArrayAvatar', { item: url, index: userId});
         } 
         catch (error) {

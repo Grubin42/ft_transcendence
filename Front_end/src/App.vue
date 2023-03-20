@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import navBar from "./components/navBar/navBar.vue"
+  import navBar from "./components/navBar.vue"
   import { onMounted } from 'vue'
   import { RouterView } from "vue-router"
   import  { useStore} from 'vuex'
