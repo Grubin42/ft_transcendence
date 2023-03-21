@@ -18,8 +18,10 @@
     const welcome = async (code: any) => {
         try {
             const response = await axios.post('/wellcome', {code: code});
+            console.log('data in homeView = ', response.data)
             if (response.data.doubleAuth == true) {
                 store.commit('setDoubleAuth', true);
+                store.commit('setCode',  true);
                 store.commit('setNickname', response.data.nickname);
             }
             else {
@@ -66,7 +68,7 @@
             Bienvenue sur ft_trantran
         </h1>
         <navButtonLogin v-if="!getToken()" @click="clicklogin()"/>
-        <formLoginCode  v-if="store.getters.getDoubleAuth == true"/>
+        <formLoginCode  v-if="store.getters.getCode == true"/>
     </div>
 </template>
 

@@ -4,7 +4,7 @@
     
     const store = useStore();
     const user = store.getters.getOneUser;
-    console.log('user in capsul = ', user);
+
 </script>
 
 <template>
@@ -34,16 +34,10 @@
 
 <style scoped lang="scss">  
 .notMe{
-    display: flex;
-    flex-direction: column;
     background-color: aquamarine;
 }
 .capsule{
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    //max-height: 100%;
-    height: 20rem;
+
     background-color: darkmagenta;
 }
 img{

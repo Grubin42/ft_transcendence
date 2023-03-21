@@ -45,7 +45,7 @@
                 if (response.status == 201)
                 {
                     store.commit('setNickname', nickname);
-                    router.push('/Profile')
+                    router.push('/Profile/me')
                 }
             } catch (error: any) {
                 console.log(error);
@@ -78,33 +78,16 @@
 
 <style scoped lang="scss">
 span{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 78%;
-    margin-top: -5%;
-    background-color: rgb(251, 251, 251);
-    width: 3rem;
-    height: 3rem;
+
     //text-align: center;
     
 }
 .formModifProfile{
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    margin-top: 3rem;
-    width: 15em;
-    max-height: 15em;
-    border: 0.1rem solid;
-    border-color: black;
+
     //background-color: darkslateblue;
 }
 .submit{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
 }
 img{
     width: 100px;

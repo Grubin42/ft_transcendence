@@ -10,12 +10,6 @@
     const router = useRouter();
     const store = useStore();
 
-    function getToken() {
-        const token = store.getters.getToken;
-        if (token)
-        return token;
-    }
-
     function clickCheckWhat(what: string){
         if(what == 'all'){
             store.commit('setWhat', what);
@@ -27,10 +21,10 @@
         
     onMounted(async () => {
         try {
-            const headers = { Authorization: `Bearer ${getToken()}` };
+            const headers = { Authorization: `Bearer ${store.getters.getToken}` };
             const response = await axios.get("/users/all", {headers});
             store.commit('setAllUsers', response.data);
-            console.log('allUsers = ', response.data)
+            console.log('allUsers in UsersView= ', response.data)
         } catch (error: any) {
             console.log(error);
             //alert(error);

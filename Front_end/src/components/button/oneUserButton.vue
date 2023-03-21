@@ -9,7 +9,7 @@
     function click(data: any){
         //mettre data dans le store, data = un utilisateur
         store.commit('setOneUser', data);
-        console.log('user in oneUserButton',store.getters.getOneUser);
+        console.log('OneUser in oneUserButton',store.getters.getOneUser);
         router.push('/Profile/user');
     }
 

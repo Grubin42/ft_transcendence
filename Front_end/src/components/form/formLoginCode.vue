@@ -20,7 +20,7 @@
           store.commit('setToken',  response.data.accessToken);
           let url = await getAvatar(store, response.data.user.user_id);
           store.commit('setAvatar', url);
-          store.commit('setDoubleAuth',  false);
+          store.commit('setCode',  false);
           router.push("/");
         }
       } catch (error: any) {
@@ -36,7 +36,6 @@
 </script>
 
 <template>
-
     <form class="navButton">
         <input class="navButton" type="text" name="codeMail" autocomplete="off"
         minlength="4" placeholder="code"
