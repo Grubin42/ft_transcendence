@@ -6,11 +6,11 @@
     const store = useStore();
 
     function logout() {
-        //const socket = store.getters.getWebSocket;
-        //if (socket){
-            //socket.disconnect();
-            //console.log('socket is disconnect');
-        //}
+        const socket = store.getters.getWebSocket;
+        if (socket){
+            socket.disconnect();
+            console.log('socket is disconnect');
+        }
         localStorage.clear();
         store.replaceState({});
         store.commit('setDoubleAuth', {isDoubleAuth: false});

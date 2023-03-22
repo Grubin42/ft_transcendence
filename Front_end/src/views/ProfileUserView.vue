@@ -4,9 +4,9 @@
     import friendRequest from "@/components/button/friendRequest.vue";
     import sendMsg from '@/components/button/sendMsg.vue';
     import playInvit from '@/components/button/playInvit.vue';
-    import { useStore } from "vuex"
-    const store = useStore();
-    const user = store.getters.getOneUser;
+    //import { useStore } from "vuex"
+    //const store = useStore();
+    //const user = store.getters.getOneUser;
 
 </script>
 

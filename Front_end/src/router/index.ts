@@ -5,10 +5,11 @@ import UsersView from '../views/UsersView.vue'
 import ProfileUserView from '../views/ProfileUserView.vue'
 import ProfileUserMeView from '../views/ProfileUserMeView.vue'
 import DashBoardChat from '../views/DashBoardChatView.vue'
+import CreateChan from '../views/CreateChanView.vue'
+import ChanView from '../views/ChatView.vue'
 
-function isAuthenticated(){
-  let isConnect = store.getters.getToken;
-  if (isConnect == true)
+function isAuthenticated(){// utiliser directement store.getters.getToken dans les before si possible
+  if (store.getters.getToken)
     return true;
   else
     return false;
@@ -73,6 +74,34 @@ const router = createRouter({
       path: '/dashBoardChat',
       name: 'dashBoardChat',
       component: DashBoardChat,
+      /*beforeEnter:(to, from, next) => {
+        console.log(isAuthenticated());
+        if(isAuthenticated() == true){
+          next();
+        }
+        else {
+          next({ name: 'register' });
+        }
+      }*/
+    },
+    {
+      path: '/CreateChan',
+      name: 'CreateChan',
+      component: CreateChan,
+      /*beforeEnter:(to, from, next) => {
+        console.log(isAuthenticated());
+        if(isAuthenticated() == true){
+          next();
+        }
+        else {
+          next({ name: 'register' });
+        }
+      }*/
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: ChanView,
       /*beforeEnter:(to, from, next) => {
         console.log(isAuthenticated());
         if(isAuthenticated() == true){

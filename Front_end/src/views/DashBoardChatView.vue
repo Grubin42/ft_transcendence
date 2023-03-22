@@ -18,42 +18,10 @@
             const response = await axios.get('/chat/all', {headers});
             store.commit('setChans', response.data);
             store.commit('setChanId', 0);
-            console.log('/chat/all', response.data);
         } catch (error: any) {
             console.log(error)
         }
     }
-    
-    function getChansPublic(){
-        const chansPublic = store.getters.getChans;
-        if (chansPublic && chansPublic.chanels){
-            return chansPublic.chanels;
-        }
-        else{
-            return [];
-        }
-    }
-    
-    function getChansJoined(){
-        const chansPublicJoined = store.getters.getChans;
-        if (chansPublicJoined && chansPublicJoined.chanels){
-            return chansPublicJoined.Mychanels;
-        }
-        else{
-            return [];
-        }
-    }
-    
-    function getChansPrivate(){
-        const chansPrivate = store.getters.getChans;
-        if (chansPrivate && chansPrivate.privMsg){
-            return chansPrivate.privMsg;
-        }
-        else{
-            return [];
-        }
-    }
-    
 
     const  clickChan = async (chan: any) =>{
         try {
@@ -86,31 +54,29 @@
             }
             const response = await axios.post(`/chat/quit`, data, {headers});//faire trycatch
             store.commit('setChans', response.data);
-            console.log('/chat/quit', response.data);
-            //router.push('/dashBoardChat')
         } catch (error) {
             console.log(error);
         }
     }
     
     function createMsg(){
-        router.push('/CreateChan');//a faire
+        router.push('/CreateChan');
     }
     
     function createPrivMsg(){
-        router.push('/Users');//a faire
+        router.push('/users');
     }
 </script>
 
 <template>
     <div class="main-dashboard">
-        <h1 id="H1">CHANNEL</h1>
+        <h1 id="H1">My channel</h1>
         <div class="create-msg">
             <button id="plus" @click="createMsg()">
                 +
             </button>
         </div>
-        <div class="liste-chan-pub" v-for="(chanPublicJoined, index) in getChansJoined()" :key="index">
+        <div class="liste-chan-pub" v-for="(chanPublicJoined, index) in store.getters.getChans.Mychanels" :key="index">
             <button id="quitchan" @click="clickChan(chanPublicJoined)">
                 {{ chanPublicJoined.chanel_name }}
             </button>
@@ -118,8 +84,8 @@
                 -
             </button>
         </div>
-        <h1>other channel</h1>
-        <div class="liste-chan-pub" v-for="(chanPublicNotJoined, index) in getChansPublic()" :key="index">
+        <h1>Other channel</h1>
+        <div class="liste-chan-pub" v-for="(chanPublicNotJoined, index) in store.getters.getChans.chanels" :key="index">
             <button id="quitchan" @click="clickChan(chanPublicNotJoined)">
                 {{ chanPublicNotJoined.chanel_name }}
             </button>
@@ -131,7 +97,7 @@
                 +
             </button>
         </div>
-        <div class="liste-privMsg" v-for="(chanPrivate, index) in getChansPrivate()" :key="index">
+        <div class="liste-privMsg" v-for="(chanPrivate, index) in store.getters.getChans.privMsg" :key="index">
             <button id="quitchan" @click="clickChan(chanPrivate)">
                 {{ chanPrivate.users_nickname }}
             </button>

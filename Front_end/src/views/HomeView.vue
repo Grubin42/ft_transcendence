@@ -18,7 +18,6 @@
     const welcome = async (code: any) => {
         try {
             const response = await axios.post('/wellcome', {code: code});
-            console.log('data in homeView = ', response.data)
             if (response.data.doubleAuth == true) {
                 store.commit('setDoubleAuth', true);
                 store.commit('setCode',  true);
@@ -31,6 +30,7 @@
                 store.commit('setToken',  response.data.accessToken);
                 let url = await getAvatar(store, response.data.user.user_id);
                 store.commit('setAvatar', url);
+                store.dispatch('initWebSocket');
                 router.push('/');
             }
 

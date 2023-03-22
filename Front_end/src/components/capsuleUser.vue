@@ -1,17 +1,33 @@
 <script  setup lang="ts">
 //faire requete pour recuperer l'user sur le quel on a clicker
     import { useStore } from "vuex"
-    
+    import { onMounted, ref } from 'vue';
+    import getAvatar from '../getAvatar'
+
     const store = useStore();
     const user = store.getters.getOneUser;
+
+    onMounted(async () => {
+        getuserAvatar(user.user_user_id)
+    });
+
+    async function getuserAvatar(userId: number) {
+        try {
+            const url = await getAvatar(store, userId);
+            store.commit('setUserAvatar', url);
+        } 
+        catch (error) {
+            console.error(error);
+        }
+    }
 
 </script>
 
 <template>
     <div class="capsule">
-        <div class="notMe" v-if="user.user_user_id != store.getters.getId">
-            <div>
-                <img :src="store.getters.getArrayAvatar(user.user_user_id)" />
+        <div class="notMe" v-if="user.user_user_id != store.getters.getId" >
+            <div >
+                <img :src="store.getters.getUserAvatar" />
             </div>
             <div>
                 user_nickname = {{ user.user_nickname }}

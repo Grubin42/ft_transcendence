@@ -7,13 +7,7 @@ export async function getAvatar(store: any, id: any) {//params token pas obligat
         const arrayBuffer = await response.arrayBuffer();
         const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
         const url = URL.createObjectURL(blob);
-        return url;
-        //store.commit('setAvatar', url);
-        //store.dispatch('setSelfProps', {
-            //isAvatar: url,
-        //});
-        //store.dispatch('initWebSocket');
-        
+        return url;    
     } catch (error) {
         alert(error)
     }

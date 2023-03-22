@@ -21,6 +21,7 @@
           let url = await getAvatar(store, response.data.user.user_id);
           store.commit('setAvatar', url);
           store.commit('setCode',  false);
+          store.dispatch('initWebSocket');
           router.push("/");
         }
       } catch (error: any) {
