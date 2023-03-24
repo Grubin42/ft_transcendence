@@ -8,7 +8,7 @@
     import axios from 'axios';
 
     const store = useStore();
-    const chatMessages = ref<string[]>([]);
+    const chatMessages = ref<any[]>([]);
     const socket = store.getters.getWebSocket;
     //const newMessage = ref('');
     //const userContext = store.getters.getUserContext;
@@ -23,7 +23,9 @@
         store.commit("setUsers", response.data.users);
         const chatHistory = await axios.get(`/chat/history/${store.getters.getChanContext.chanel_chat_id}`,  {headers});
         store.commit("setChatHistory", chatHistory.data.history);
+
         socket.on('join', (message: any) => {
+            console.log('chatmsg', message);
             chatMessages.value.push(message);
         });
         socket.emit('join', `${store.getters.getChanContext.chanel_chat_id}`);
@@ -59,7 +61,7 @@
         <chatHistory />
       </div>
       <div class="chat-currentMsg" v-for="(msg, index) in chatMessages" :key="index">
-        <div v-if="msg.messages_text" class="chat-messages" :class="{ 'chat-myMsg': msg.sender_user_id === store.getters.getId, 'chat-hisMsg': msg.sender_user_id != store.getters.getId}">
+        <div v-if="typeof msg === 'object' && msg.messages_text" class="chat-messages" :class="{ 'chat-myMsg': msg.sender_user_id === store.getters.getId, 'chat-hisMsg': msg.sender_user_id != store.getters.getId}">
           <div id="name">
             {{ msg.sender_nickname }}
           </div>
