@@ -31,6 +31,7 @@
             </div>
             <div>
                 user_nickname = {{ user.user_nickname }}
+                <div class="status-indicator" :class="{ 'status-online': user.users_isActive, 'status-offline': !user.users_isActive }"></div>
             </div>
         </div>
         <div>
@@ -41,9 +42,6 @@
         </div>
         <div>
             nb defaites = {{ user.stats_defeats }}
-        </div>
-        <div>
-            is active = {{ user.user_isActive}}
         </div>
     </div>    
 </template>
@@ -63,5 +61,19 @@ img{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.status-online {
+    background-color: green;
+}
+
+.status-offline {
+    background-color: red;
 }
 </style>

@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import { io } from 'socket.io-client';
+import { ref } from 'vue';
 
 const persistedState = createPersistedState({
   paths: [
@@ -15,6 +16,10 @@ const store = createStore({
   plugins: [persistedState],
 
   state: {
+
+      isChatMessages: ref<string[]>([]),
+      isNewMessage: ref(''),
+
       isToken: "", 
       isDoubleAuth: false,
       isId: 0,
@@ -37,12 +42,14 @@ const store = createStore({
       isChans: [],
       isChanContext: [],
       isChatHistory: [],
-      isUsersInChan: [],
+      //isUsersInChan: [],
 
       isWebSocket: null
   },
 
   mutations: {
+    setChatMessages(state, isChatMessages){state.isChatMessages = isChatMessages},
+    setNewMessage(state, isNewMessage){state.isNewMessage = isNewMessage},
     setToken(state, isToken){state.isToken = isToken},
     setDoubleAuth(state, isDoubleAuth){state.isDoubleAuth = isDoubleAuth},
     setId(state, isId){state.isId = isId},
@@ -60,7 +67,7 @@ const store = createStore({
     setUserId(state, isUserId) {state.isUserId = isUserId},
     setBool(state, isBool) {state.isBool = isBool},
     setChatHistory(state, isChatHistory) {state.isChatHistory = isChatHistory},
-    setUsersInChan(state, isUsersInChan) {state.isUsersInChan = isUsersInChan},
+    //setUsersInChan(state, isUsersInChan) {state.isUsersInChan = isUsersInChan},
     setChans(state,  isChans) {state.isChans =  isChans},
     setWebSocket(state, isWebSocket) {state.isWebSocket = isWebSocket;},
     setArrayAvatar(state, payload){
@@ -69,11 +76,13 @@ const store = createStore({
     },
     clearArray(state) {
       state.isArrayAvatar = [];
-      state.isOneUser= [];
+      //state.isOneUser= [];
     },
   },
 
   getters: {
+    getChatMessages: state => state.isChatMessages,
+    getNewMessage: state => state.isNewMessage,
     getToken: state => state.isToken,
     getDoubleAuth: state => state.isDoubleAuth,
     getId: state => state.isId,
@@ -91,7 +100,7 @@ const store = createStore({
     getUserId: state => state.isUserId,
     getBool: state => state.isBool,
     getChatHistory: state => state.isChatHistory,
-    getUsersInChan: state => state.isUsersInChan,
+    //getUsersInChan: state => state.isUsersInChan,
     getWebSocket: state => state.isWebSocket,
     getArrayAvatar: (state) => (index: any) => {
       return state.isArrayAvatar[index]
@@ -100,10 +109,9 @@ const store = createStore({
   },
   actions: {
     initWebSocket({ commit }) {
-      const myId = store.getters.getId;
       const webSocket = io('http://c1r2s3:4000/', {
         auth: {
-          myId: myId
+          token: store.getters.getToken,
         }
       });
 

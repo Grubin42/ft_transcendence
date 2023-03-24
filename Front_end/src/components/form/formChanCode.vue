@@ -18,7 +18,12 @@
                   chanId: chanContext.chanel_chat_id,
                 }
                 const response = await axios.post("/chat/code", data, {headers});
-                router.push("/chat");
+                if(response.data === true){
+                    router.push("/chat");
+                }
+                else{
+                    alert('PWD invalid');
+                }
             } catch (error: any) {
                 console.log(error);
             }

@@ -12,8 +12,7 @@
     }
 
     async function fetchData(){
-        if(store.getters.getWhat == 'all'){
-            store.commit('clearArray');
+        if(store.getters.getWhat === 'all'){
             const user = store.getters.getAllUsers.allUsers;
             const length = user.length;
             for (let index = 0; index < length; index++) {
@@ -21,14 +20,20 @@
             }
             store.commit('setUsers', store.getters.getAllUsers.allUsers);
         }
-        else if(store.getters.getWhat == 'friends'){
-            store.commit('clearArray');
+        else if(store.getters.getWhat === 'friends'){
             const user = store.getters.getAllUsers.myFriends;
             const length = user.length;
             for (let index = 0; index < length; index++) {
                 await pushAvatarUrl(user[index].user_user_id)
             }
             store.commit('setUsers', store.getters.getAllUsers.myFriends);
+        }
+        else if (store.getters.getWhat === 'UsersInChan'){
+            const user = store.getters.getUsers;
+            const length = user.length;
+            for (let index = 0; index < length; index++) {
+                await pushAvatarUrl(user[index].user_user_id)
+            }
         }
     }
 
